@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class LoginViewController: UIViewController {
     @IBOutlet weak var usernameField: UITextField!
@@ -26,6 +27,21 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func onSignUp(sender: AnyObject) {
+        let newUser = PFUser()
+        
+        newUser.username = usernameField.text
+        newUser.password = usernameField.text
+        
+        newUser.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+            if success {
+                print("Yay, created a user!")
+            } else {
+                print(error?.localizedDescription)
+                if error?.code === 202 {
+                    print("Username is taken")
+                }
+            }
+        }
     }
 
     /*

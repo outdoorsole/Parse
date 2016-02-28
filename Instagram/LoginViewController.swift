@@ -24,13 +24,21 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func onSignIn(sender: AnyObject) {
+        PFUser.logInWithUsernameInBackground(usernameField.text!, password: passwordField.text!) { (user: PFUser?, error: NSError?) -> Void in
+            if user != nil {
+                print("you're logged in!")
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
     }
     
     @IBAction func onSignUp(sender: AnyObject) {
         let newUser = PFUser()
         
         newUser.username = usernameField.text
-        newUser.password = usernameField.text
+        newUser.password = passwordField.text
+
         
         newUser.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success {

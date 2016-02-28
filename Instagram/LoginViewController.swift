@@ -37,7 +37,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @IBAction func registerUser(sender: UIButton) {
+    @IBAction func onSignUp(sender: AnyObject) {
         // Initialize a user object
         let newUser = PFUser()
         
@@ -47,13 +47,13 @@ class LoginViewController: UIViewController {
 
         // call sign up function on the object
         newUser.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-            if let error = error {
-                print(error.localizedDescription)
+            if success {
+                print("User Registered successfully!")
+            } else {
+                print(error!.localizedDescription)
                 if error?.code === 202 {
                     print("Username is taken")
                 }
-            } else {
-                print("User Registered successfully!")
             }
         }
     }

@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Instagram
 //
-//  Created by Mari Gordon on 2/27/16.
+//  Created by Maribel Montejano on 2/27/16.
 //  Copyright © 2016 Maribel Montejano. All rights reserved.
 //
 

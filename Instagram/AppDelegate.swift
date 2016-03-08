@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Instagram
 //
-//  Created by Mari Gordon on 2/27/16.
+//  Created by Maribel Montejano on 2/27/16.
 //  Copyright © 2016 Maribel Montejano. All rights reserved.
 //
 
@@ -28,6 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 configuration.server = "https://fierce-cove-82360.herokuapp.com/parse"
             })
         )
+        
+        // check if user is logged in.
+        if PFUser.currentUser() != nil {
+            // if there is a logged in user then load the home view controller
+        }
+        
         return true
     }
 

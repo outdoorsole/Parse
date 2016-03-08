@@ -2,7 +2,7 @@
 //  LoginViewController.swift
 //  Instagram
 //
-//  Created by Mari Gordon on 2/27/16.
+//  Created by Maribel Montejano on 2/27/16.
 //  Copyright © 2016 Maribel Montejano. All rights reserved.
 //
 
@@ -18,15 +18,22 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     @IBAction func onSignIn(sender: AnyObject) {
+        // PFUser handles the functionality for user account management. It has several properties:
+        // username (required)
+        // password (required)
+        // email (optional)
+                
         PFUser.logInWithUsernameInBackground(usernameField.text!, password: passwordField.text!) { (user: PFUser?, error: NSError?) -> Void in
             if user != nil {
                 print("you're logged in!")
+
+                self.dismissViewControllerAnimated(true, completion: nil)
             } else {
                 print(error!.localizedDescription)
             }
@@ -34,17 +41,22 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func onSignUp(sender: AnyObject) {
+        // Initialize a user object
         let newUser = PFUser()
         
+        // Set user properties
         newUser.username = usernameField.text
         newUser.password = passwordField.text
 
-        
+        // call sign up function on the object
         newUser.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success {
-                print("Yay, created a user!")
+                print("User Registered successfully!")
+                
+                // manually segue to the logged in view
+                self.performSegueWithIdentifier("loginSegue", sender: nil)
             } else {
-                print(error?.localizedDescription)
+                print(error!.localizedDescription)
                 if error?.code === 202 {
                     print("Username is taken")
                 }

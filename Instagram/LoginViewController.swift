@@ -18,7 +18,7 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -28,11 +28,12 @@ class LoginViewController: UIViewController {
         // username (required)
         // password (required)
         // email (optional)
+                
         PFUser.logInWithUsernameInBackground(usernameField.text!, password: passwordField.text!) { (user: PFUser?, error: NSError?) -> Void in
             if user != nil {
                 print("you're logged in!")
-                
-                self.performSegueWithIdentifier("loginSegue", sender: nil)
+
+                self.dismissViewControllerAnimated(true, completion: nil)
             } else {
                 print(error!.localizedDescription)
             }
@@ -52,6 +53,7 @@ class LoginViewController: UIViewController {
             if success {
                 print("User Registered successfully!")
                 
+                // manually segue to the logged in view
                 self.performSegueWithIdentifier("loginSegue", sender: nil)
             } else {
                 print(error!.localizedDescription)

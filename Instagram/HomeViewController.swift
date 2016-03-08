@@ -14,10 +14,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var posts: [PFObject]?
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -26,6 +29,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             performSegueWithIdentifier("loginSegue", sender: self)
         } else {
             
+            var query = PFQuery(className: "Post")
+            
+            // fetch data asynchronously
+            query.findObjectsInBackgroundWithBlock { (posts: [PFObject]?, error: NSError?) -> Void in
+                if let posts = posts {
+                    self.posts = posts
+                    self.tableView.reloadData()
+                } else {
+                    print(error?.localizedDescription)
+                }
+            }
         }
     }
     
